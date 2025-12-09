@@ -1,0 +1,191 @@
+{
+    "info": {
+      "_postman_id": "d79c1b4c-2234-4941-9dbb-123456789abc",
+      "name": "Leaderboard API Collection",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+      "_exporter_id": "leaderboard-api"
+    },
+    "item": [
+      {
+        "name": "Register User",
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"username\": \"player1\",\n    \"password\": \"secret123\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/auth/register",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["auth", "register"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Login User",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const json = pm.response.json();",
+                "if (json.access_token) {",
+                "   pm.collectionVariables.set(\"token\", json.access_token);",
+                "   console.log(\"User token saved:\", json.access_token);",
+                "} else {",
+                "   console.log(\"No token found in response.\");",
+                "}"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ],
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"username\": \"player1\",\n    \"password\": \"secret123\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/auth/login",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["auth", "login"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Submit Score (Authenticated User)",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer {{token}}",
+              "type": "text"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"playerName\": \"player1\",\n    \"score\": 12345\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/scores",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["scores"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Get Leaderboard",
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "http://localhost:3000/leaderboard",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["leaderboard"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Login Admin",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "const json = pm.response.json();",
+                "if (json.access_token) {",
+                "   pm.collectionVariables.set(\"adminToken\", json.access_token);",
+                "   console.log(\"Admin token saved:\", json.access_token);",
+                "} else {",
+                "   console.log(\"No admin token found in response.\");",
+                "}"
+              ],
+              "type": "text/javascript"
+            }
+          }
+        ],
+        "request": {
+          "method": "POST",
+          "header": [
+            { "key": "Content-Type", "value": "application/json" }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/auth/login",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["auth", "login"]
+          }
+        },
+        "response": []
+      },
+      {
+        "name": "Admin Submit Score (for another player)",
+        "request": {
+          "method": "POST",
+          "header": [
+            {
+              "key": "Authorization",
+              "value": "Bearer {{adminToken}}",
+              "type": "text"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n    \"playerName\": \"someOtherPlayer\",\n    \"score\": 99999\n}"
+          },
+          "url": {
+            "raw": "http://localhost:3000/scores",
+            "protocol": "http",
+            "host": ["localhost"],
+            "port": "3000",
+            "path": ["scores"]
+          }
+        },
+        "response": []
+      }
+    ],
+    "variable": [
+      {
+        "key": "token",
+        "value": ""
+      },
+      {
+        "key": "adminToken",
+        "value": ""
+      }
+    ]
+  }
+  
