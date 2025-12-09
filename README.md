@@ -1,98 +1,280 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+---
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+# 🚀 Leaderboard Backend API (NestJS + PostgreSQL)
 
-## Description
+This project is a backend API built with **NestJS**, **PostgreSQL**, **JWT Authentication**, **Role-Based Authorization**, **Rate Limiting**, **Request Logging**, and **Docker support**.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+It implements all requirements from the Leaderboard Tech Challenge.
 
-## Project setup
+---
 
-```bash
-$ npm install
+## 📦 Tech Stack
+
+* **NestJS** (TypeScript)
+* **PostgreSQL** (TypeORM)
+* **JWT Authentication**
+* **Admin & User Authorization**
+* **Rate Limit per Route + Global**
+* **Request Logging**
+* **Docker / Docker Compose**
+* **Postman Collection included**
+
+---
+
+# ⚙️ Environment Setup
+
+Create a `.env` file in the project root:
+
+```
+PORT=3000
+
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=leaderboard
+
+JWT_SECRET=super-secret-change-me
+JWT_EXPIRES_IN=1h
+
+THROTTLE_TTL_MS=60000
+THROTTLE_LIMIT=100
+
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=admin123
 ```
 
-## Compile and run the project
+👆 The admin account is auto-seeded when the app boots.
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+# ▶️ How to Run the App
 
-# production mode
-$ npm run start:prod
+---
+
+## **Option 1 — Run Locally**
+
+### 1. Install dependencies
+
+```
+npm install
 ```
 
-## Run tests
+### 2. Make sure PostgreSQL is running
 
-```bash
-# unit tests
-$ npm run test
+Create DB if needed:
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+```
+createdb leaderboard
 ```
 
-## Deployment
+### 3. Start the server
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+```
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+You should see:
 
-## Resources
+```
+Server listening on port 3000
+[Seed] Admin user "admin" created
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+API is now live at:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```
+http://localhost:3000
+```
 
-## Support
+---
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## **Option 2 — Run with Docker**
 
-## Stay in touch
+```
+docker-compose up --build
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+This launches:
 
-## License
+* PostgreSQL (`db`)
+* NestJS API (`api`)
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+App will run at:
+
+```
+http://localhost:3000
+```
+
+---
+
+# 🧪 API Endpoints
+
+---
+
+## 1️⃣ Register User
+
+**POST** `/auth/register`
+
+### Request:
+
+```json
+{
+  "username": "player1",
+  "password": "secret123"
+}
+```
+
+### Response:
+
+```json
+{
+  "access_token": "..."
+}
+```
+
+---
+
+## 2️⃣ Login User
+
+**POST** `/auth/login`
+
+### Request:
+
+```json
+{
+  "username": "player1",
+  "password": "secret123"
+}
+```
+
+### Response:
+
+```json
+{
+  "access_token": "..."
+}
+```
+
+Use token in all authenticated requests:
+
+```
+Authorization: Bearer <token>
+```
+
+---
+
+## 3️⃣ Submit Score (Authenticated)
+
+**POST** `/scores`
+
+### Headers:
+
+```
+Authorization: Bearer <token>
+Content-Type: application/json
+```
+
+### Body:
+
+```json
+{
+  "playerName": "player1",
+  "score": 20000
+}
+```
+
+### Rules:
+
+| Role  | May submit for self | May submit for others |
+| ----- | ------------------- | --------------------- |
+| user  | ✅ yes               | ❌ no                  |
+| admin | ✅ yes               | ✅ yes                 |
+
+### Rate limit:
+
+⏱ **5 requests per minute per user/IP**
+
+---
+
+## 4️ Get Leaderboard
+
+**GET** `/leaderboard`
+
+### Response:
+
+```json
+[
+  {
+    "playerName": "player1",
+    "score": 30000
+  },
+  {
+    "playerName": "player2",
+    "score": 15000
+  }
+]
+```
+
+* Always returns **top 10**
+* Sorted by highest score
+
+---
+
+# Roles Explanation
+
+* Users can **only submit scores for themselves**
+* Admin can submit scores **for any player**
+* Admin is auto-created at startup using `.env` values
+
+---
+
+# Request Logging
+
+Every request is logged into `requests.log`:
+
+
+Includes:
+
+* Timestamp
+* IP
+* HTTP method
+* URL
+* Status code
+* Duration
+
+---
+
+# Postman Collection
+
+A ready-to-import Postman JSON file is included:
+
+### Endpoints in collection:
+
+* Register User
+* Login User (auto-saves token)
+* Submit Score
+* Get Leaderboard
+* Login Admin (auto-saves adminToken)
+* Admin Submit Score (for any player)
+
+Import the file:
+
+```
+Leaderboard.postman_collection.json
+```
+
+---
+
+# Summary of Features
+
+✔ SQL database (PostgreSQL)
+✔ JWT auth
+✔ User/admin authorization
+✔ Rate limiting
+✔ Request logging
+✔ Admin seeding
+✔ Docker support
+✔ Clean modular NestJS structure
+✔ Postman documentation

@@ -15,13 +15,13 @@ import {
   export class ScoresController {
     constructor(private readonly scoresService: ScoresService) {}
   
-    // POST /scores – authenticated + stricter rate limit
+    // POST /scores 
     @Post('scores')
     @UseGuards(AuthGuard('jwt'))
     @Throttle({
       default: {
-        limit: 5,              // at most 5 calls
-        ttl: seconds(60),      // per 60 seconds (per IP/user)
+        limit: 5,              
+        ttl: seconds(60),      
       },
     })
     createScore(@Req() req, @Body() dto: CreateScoreDto) {
