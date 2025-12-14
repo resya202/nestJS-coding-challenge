@@ -18,6 +18,14 @@ export class UsersService {
     return this.repo.findOne({ where: { id } });
   }
 
+  findByIdAndScore(username: string) {
+    return this.repo.findOne({
+      where: { username },
+      relations: ['scores']
+    });
+  }
+  
+
   async createUser(
     username: string,
     passwordHash: string,

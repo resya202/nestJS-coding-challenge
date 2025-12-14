@@ -8,3 +8,8 @@ export class CreateScoreDto {
   @IsPositive()
   score: number;
 }
+
+export class GetUser{
+  @IsString()
+  playerName: string;
+}

@@ -50,7 +50,7 @@ import * as bcrypt from 'bcrypt';
         password: config.get('DB_PASSWORD'),
         database: config.get('DB_NAME'),
         entities: [User, Score],
-        synchronize: true, // dev only
+        synchronize: true,
       }),
     }),
 
@@ -80,7 +80,7 @@ export class AppModule implements OnApplicationBootstrap {
     const adminUsername = this.configService.get<string>('ADMIN_USERNAME');
     const adminPassword = this.configService.get<string>('ADMIN_PASSWORD');
 
-    // If env not set, skip seeding (so prod can disable it easily)
+    // If env not set, skip seeding
     if (!adminUsername || !adminPassword) {
       console.log('[Seed] ADMIN_USERNAME or ADMIN_PASSWORD not set, skipping admin seeding');
       return;

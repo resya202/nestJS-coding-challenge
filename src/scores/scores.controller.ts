@@ -7,7 +7,7 @@ import {
     UseGuards,
   } from '@nestjs/common';
   import { ScoresService } from './scores.service';
-  import { CreateScoreDto } from './dto/create-score.dto';
+  import { CreateScoreDto, GetUser } from './dto/create-score.dto';
   import { AuthGuard } from '@nestjs/passport';
   import { Throttle, seconds } from '@nestjs/throttler';
   
@@ -25,6 +25,8 @@ import {
       },
     })
     createScore(@Req() req, @Body() dto: CreateScoreDto) {
+      console.log(req,"ini scores");
+      
       return this.scoresService.createScore(req.user, dto);
     }
   
@@ -33,5 +35,10 @@ import {
     getLeaderboard() {
       return this.scoresService.getLeaderboard();
     }
+
+    @Post('latest-score')
+    latestScoreUser(@Req() req,) {
+  return this.scoresService.latestScoreUser(req.body);
+}
   }
   

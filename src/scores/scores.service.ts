@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Score } from './score.entity';
 import { UsersService } from '../users/users.service';
-import { CreateScoreDto } from './dto/create-score.dto';
+import { CreateScoreDto, GetUser } from './dto/create-score.dto';
 import { UserRole } from '../users/user.entity';
 
 @Injectable()
@@ -36,7 +36,7 @@ export class ScoresService {
     const scoreEntity = this.repo.create({
       playerName,     // name shown on leaderboard
       score,          // numeric score
-      user,           // who submitted it (for audit)
+      user,           // who submitted it
     });
 
     return this.repo.save(scoreEntity);
@@ -53,4 +53,27 @@ export class ScoresService {
       score: s.score,
     }));
   }
+
+  async latestScoreUser(currentUser: any) {
+    console.log(currentUser,"ini");
+    
+    const user = await this.usersService.findByIdAndScore(
+      currentUser.username,
+    );
+  
+    if (!user || !user.scores || user.scores.length === 0) {
+      return null;
+    }
+
+    const latestScore = user.scores[0];
+  
+    return {
+      playerName: user.username,
+      score: latestScore.score,
+      createdAt: latestScore.createdAt,
+    };
+  }
+  
+
+  
 }
